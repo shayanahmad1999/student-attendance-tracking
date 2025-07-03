@@ -8,23 +8,6 @@
                     <div
                         class="bg-white border border-gray-200 rounded-xl shadow-2xs overflow-hidden dark:bg-neutral-900 dark:border-neutral-700">
                         <!-- Header -->
-                        <div class="p-6">
-                            <!-- Right-align wrapper -->
-                            <div class="flex justify-end">
-                                <div class="flex flex-wrap items-center gap-3">
-
-                                    <!-- Search Input (Flux component) -->
-                                    <flux:input wire:model.live="search" :label="__('Search')" type="text" required
-                                        placeholder="Search by name..." class="w-48 md:w-56" />
-
-                                    <!-- Reset Button -->
-                                    <flux:button wire:click="clearFilters" variant="primary" type="button"
-                                        class="mt-5">
-                                        {{ __('Reset') }}
-                                    </flux:button>
-                                </div>
-                            </div>
-                        </div>
                         <div
                             class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-700">
                             <div>
@@ -52,6 +35,24 @@
                             </div>
                         </div>
                         <!-- End Header -->
+
+                        <div class="p-6">
+                            <!-- Right-align wrapper -->
+                            <div class="flex justify-end">
+                                <div class="flex flex-wrap items-center gap-3">
+
+                                    <!-- Search Input (Flux component) -->
+                                    <flux:input wire:model.live="search" :label="__('Search')" type="text" required
+                                        placeholder="Search by name..." class="w-48 md:w-56" />
+
+                                    <!-- Reset Button -->
+                                    <flux:button wire:click="clearFilters" variant="primary" type="button"
+                                        class="mt-5">
+                                        {{ __('Reset') }}
+                                    </flux:button>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Table -->
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
