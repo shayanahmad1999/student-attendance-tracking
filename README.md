@@ -39,36 +39,30 @@ npm run dev
 # Copy and set up the environment configuration
 cp .env.example .env
 
+# set up APP_FOLDER_NAME
+define the project folder name in .env file like
+APP_FOLDER_NAME=student-attendance-tracking
+
+# set up SEND_EMAIL
+define the admin email in .env file to send the report like
+SEND_EMAIL='abc@example.com'
+
 # Generate application key
 php artisan key:generate
 
 # Run database migrations
 php artisan migrate --seed
 
-# setup index.php in the public folder
-<?php
-
-use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
-
-define('LARAVEL_START', microtime(true));
-
-// student-attendance-tracking change this into your folder project name
-if (file_exists($maintenance = __DIR__ . '/../../student-attendance-tracking/storage/framework/maintenance.php')) {
-    require $maintenance;
-}
-
-// student-attendance-tracking change this into your folder project name
-require __DIR__ . '/../../student-attendance-tracking/vendor/autoload.php';
-
-// student-attendance-tracking change this into your folder project name
-/** @var Application $app */
-$app = require_once __DIR__ . '/../../student-attendance-tracking/bootstrap/app.php';
-
-$app->handleRequest(Request::capture());
-
 # Run the development server again
 php artisan serve
 npm run dev
 
+# Send report weekly or daily
+#For daily run the command
+php artisan attendance:send-report daily
+
+#For weekly run the command
+php artisan attendance:send-report weekly
+
+ensure that you have deifne the EMAIL smtp credential in the .env file
 ```
