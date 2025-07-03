@@ -14,21 +14,24 @@ class SendAttendanceReportMail extends Mailable
     use Queueable, SerializesModels;
 
     public $period;
+    public $fullPath;
     public $filePath;
 
-    public function __construct($period, $filePath)
+
+    public function __construct($period, $fullPath, $filePath)
     {
         $this->period = $period;
+        $this->fullPath = $fullPath;
         $this->filePath = $filePath;
     }
 
     public function build()
     {
         return $this->markdown('mail.reports.attendance-report')
-                    ->with([
-                        'period' => $this->period,
-                        'downloadUrl' => asset('storage/' . $this->filePath),
-                    ])
-                    ->attach(asset('storage/' . $this->filePath));
+            ->with([
+                'period' => $this->period,
+                'downloadUrl' => url(config('app.folder_name') . '/storage/app/public/' . $this->filePath),
+            ])
+            ->attach($this->fullPath);
     }
 }

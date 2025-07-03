@@ -37,20 +37,21 @@ class SendAttendanceReportCommand extends Command
         if ($type == 'daily') {
             $startDate = $yesterday;
             $endDate = $today;
-        }elseif($type == 'weekly'){
+        } elseif ($type == 'weekly') {
             $startDate = $today->copy()->startOfWeek();
             $endDate = $today->copy()->endOfWeek();
-        }else{
+        } else {
             $this->error('Invalid type of report');
             return;
         }
 
         $fileName = "attendance_report_{$type}.xlsx";
         $filePath = "attendance_reports/{$fileName}";
+        $fullPath = storage_path("app/public/{$filePath}");
 
-        Excel::store(new AutomatedAttendanceReportExporter($startDate,$endDate),$filePath,'public');
+        Excel::store(new AutomatedAttendanceReportExporter($startDate, $endDate), $filePath, 'public');
 
-        Mail::to('shadrackmballah80@gmail.com')->send(new SendAttendanceReportMail($type,$filePath));
+        Mail::to(config('app.send_email'))->send(new SendAttendanceReportMail($type, $fullPath, $filePath));
 
         $this->info("{$type} attendance report has been sent successfully!");
     }
